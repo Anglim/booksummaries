@@ -22,7 +22,6 @@ Specific tasks involved in construction include:
 - Integrating components that were created separately
 - Tuning code to improve speed and reduce resources needed
 
-
 <br>
 
 # Chapter 2 - Metaphors for a Richer Understanding of Software Development
@@ -31,9 +30,7 @@ The use of metaphors in software development provides a great way to help someon
 
 ## Property building metaphor
 
-A metaphor that works brilliantly in most cases is that of property building. 
-
-### Property building phases are analagous with software building phases
+A metaphor that works brilliantly in most cases is that of building a property. 
 
 To start with, the phases of building a house have numerous paralells with building software:
 
@@ -46,15 +43,10 @@ To start with, the phases of building a house have numerous paralells with build
 
 To take the metaphor further, the size of the property that is being built affects how much time is spent on prerequisites such as architecture and design:
 
-### The size of the project affects how much planning is needed in both activities
-
 - If you're building a dog house, architecture and design might take up just 10 minutes before you start construction. Similarly if you're building a little hobby software project, you might start coding almost immediately.
 - However, if you're building a skyscraper, much more extensive planning is needed and this phase alone might take just as long as the construction phase itself and involve hundreds of people. Similarly, if a large application is being built, it would be expected that the requirements specification would be thousands of pages long alone, with design documentation perhaps 2-3 times more extensive than that.
 
-Another parallel is how both domains make use of pre-built items where it makes sense to do so:
-
-### Both activities make use of pre-built items
-When building a house, you'll buy prefabricated cabinetry, a dishwasher, a refrigerator, etc rather than building them yourself. Similarly, when building software, it can be enormously cost-effective to use existing libraries and tools rather than building them from scratch.
+Another parallel is how both domains make use of pre-built items where it makes sense to do so. When building a house, you'll buy prefabricated cabinetry, a dishwasher, a refrigerator, etc rather than building them yourself. Similarly, when building software, it can be enormously cost-effective to use existing libraries and tools rather than building them from scratch.
 
 There are numerous other parallels between property construction and software development making it a useful go-to when explaining software processes.
 
