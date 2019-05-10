@@ -53,3 +53,32 @@ There are numerous other parallels between property construction and software de
 <br>
 
 # Chapter 3 - Measure Twice, Cut Once: Upstream Prerequisites
+
+Before the builders can come in to build a property, it is vital that the blueprints, surveys, permits etc... are all complete. When the builder is called in, their first step will be to verify that these are complete and correct before work begins. Similarly in software development, prerequisites such as architecture, design and project planning are critical to the success of a software project. Before any code is written, the develop should verify that these prerequisites are present and correct.
+
+Unlike in the construction industry, software developers are notorious for skipping prerequisites and jumping straight into coding.
+
+One reason prerequsites are skipped is due to lack of understanding from managers who believe developers should only be coding rather than working on prerequisites. There are a couple of solutions to this:
+- Outright refuse to skip prerequisites
+- Pretend to be coding and leave the manager in blissful ignorance
+- Educate the manager in the reasoning for prerequisites. Use the construction analogy to explain the rationale.
+
+Other reasons include:
+- Some developers are unskilled in prerequisites
+- Many developers have an urge to code right away
+- Some developers don't see value in spending time on prerequisites
+
+The problem with skipping prerequisites is that it is many, many times more costly to discover a defect later on in the project than at the beginning which is shown below.
+## Data-Backed Rationale for Prerequisites
+
+Research has proven that the earlier defects are found, the more cost effective they are to fix. Generally, problems found at the beginning of construction are 10 to 100 times less expensive than when found at the end of the process. The longer the problem stays in the process, the more damage it causes.
+
+The below table shows the relative expense of fixing a defect depending on the phase where it was introduced and the phase where it was found.
+
+|                    | Phase Detected ➜ |              |              |             |              |
+|--------------------|----------------|--------------|--------------|-------------|--------------|
+| **Phase Introduced ⬇️** | **Requirements** | **Architecture** | **Construction** | **System Test** | **Post-Release** |
+| **Requirements**        | 1                | 3                | 5-10             | 10              | 10-100       |
+| **Architecture**        | -                | 1                | 10               | 15              | 25-100       |
+| **Construction**        | -                | -                | 1                | 10              | 10-25        |
+
