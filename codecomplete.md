@@ -107,14 +107,14 @@ Prerequisites should be defined in an iterative fasion when:
 In general, an iterative approach to prerequisites tends to be more useful.
 
 ## Prerequisite 1: Problem Defintion
-The problem definition is a clear statement of the problem that the system should solve.  should be a statement and should not contain a solution. For example:
+The problem definition is a clear statement of the problem that the system should solve. It should be a statement and should not contain a solution. For example:
 
 - Good problem definition: *"The server crashes when we have too many concurrent users"*
 - Bad problem definition: *"We should increase the number of servers to prevent the server crashing when we have too many concurrent users"*
 
 Without a good problem definition, you could end up solving the wrong problem.
 
-## Prerequisite 2: Requirements (AKA Spec)
+## Prerequisite 2: Requirements (Spec)
 The requirements describe in detail what a software system is supposed to do.
 
 They are important as they:
@@ -133,9 +133,13 @@ There are multiple ways to handle changes to requirements:
 - Dump the project is the requirements are so volatile that it is impossible to keep up and is costing you more than you're getting out.
 - Keep the business impact in-mind when measuring the impact of a change request. Programmers who can advise on this are worth their weight in gold.
 
+<br>
+
+---
 ### Requirements Checklist
 
 The below is a checklist that can be used to sanity check requirements. **Not all questions will apply to a given project**.
+
 
 #### Specific Functional Requirements
 - Are all the inputs to the system specified, including their source, accuracy,
@@ -188,4 +192,22 @@ every requirement, it will be acceptable?
 requirements that are impossible to implement and included just to
 appease your customer or your boss?
 
-## Prerequisite 3: Architecture
+---
+<br>
+
+## Prerequisite 3: Architecture (Top-Level Design)
+Software architecture is the high-level part of software design that concerns itself with system-wide constraints. Good architecture makes construction easy whereas bad arhcitecture makes construction nearly impossible. A good architectural document should have evidence that alternatives were considered.
+
+Here are the architectural components to consider:
+
+### Architecture Component 1: Program Organisation
+The architecture should define the major building blocks in a program. These might be a single class or a subsystem consisting of many clases. Every feature listed in the requirements should have at least one corresponding building block. 
+
+Building blocks should have a single area of responsibility and should know as little as possible about other building blocks. How building blocks communicate should also be well defined. The architecture should define what other building blocks a building block can use directly, which ones it can use indirectly and which it should never use.
+
+### Architecture Component 2: Major Classes
+The architecture should define the major classes to be used. It should identify the responsibilities of each major class and how they interact with other classes. It should include descriptions of the class hierarchies, of state transitions, and of object persistence. If the system is large enough, it should also describe how classes are organised into subsystems.
+
+However, the architecture does not need to specify every class in the system. A good rule to follow is the 80/20 rule - aim to specify the 20% of classes that make up 80% of the system's behaviour.
+
+### Architecture Component 3: Data Design
