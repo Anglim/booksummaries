@@ -211,3 +211,37 @@ The architecture should define the major classes to be used. It should identify 
 However, the architecture does not need to specify every class in the system. A good rule to follow is the 80/20 rule - aim to specify the 20% of classes that make up 80% of the system's behaviour.
 
 ### Architecture Component 3: Data Design
+The architecture should describe the major files and table designs to be used. It should specify the high-level organisation and contents of any databases used. It should explain why a single database is preferable to multiple databases or vice versa. It should identify possible interactions with other programs that access the same data, explain what views have been created on the data, etc...
+
+Data should normally only be accessible by one subsystem or class, except through access classes or routines that allow access to the data in controlled and abstract ways.
+
+### Architecture Component 4: Business Rules
+If the architecture depends on some business rules, it should identify them and describe their impact on the system design. For example, if the system is required to keep personal customer data for no longer than 7 days, then that will likely have an impact on the architecture
+
+### Architecture Component 5: User Interface Design
+If not specified in the requirements, the architecture should specify the UI. The architecture should be modularised such that a new UI can be subtituted without affecting business rules and outputs. For example, the architecture should make it easy to remove a UI interface and replace it with a command line system - this is often useful to make software testing more convenient.
+
+### Architecture Component 6: Resource Management
+The architecture should describe a plan for managing scarce resources such as DB connections, threads and handles. It should also consider memory management if the program is memory-constrained. The architecture should estimate the resources used for nominal and extreme cases.
+
+### Architecture Component 7: Security
+Coding guidelines should be developed with security implications in mind, including approaches to handling buffers, untrusted data (user inputs, cookies, etc...), encryption, error detail, in-memory secret data and more.
+
+### Architecture Component 8: Performance
+If a concern, performance goals should be specified in the *requirements*. Then, the architecture should provide estimates and explain why they believe the performance goals are achievable. If certain areas are at risk of failing to meet the performance goals, the architecture should say so. If certain algorithms are required to meet the performance goals, the architecture should say that too. The architecture should also include O(n) space and time budgets for each class or object.
+
+### Architecture Component 8: Scalability
+The architecture should describe how the system will address growth in users, servers, database records, size of data, etc...
+
+### Architecture Component 9: Interopability
+If applicable, the architecture should specify how the system is expected to share data or resources with other software or hardware.
+
+### Architecture Component 10: Internationalisation / Localisation
+Internationalisation is the activity of supporting multiple locales. Localisation is the activity of supporting a specific local language. Sometimes internationalisation is referred to as "i18n" (i and n being the first and last letters, with 18 letters in the middle) and localisation is referred to as "L10n".
+
+Internationalisation is important as most systems contain tons of prompts, status displays, help messages, error messages, etc. The architecture should specify how to manage the various foreign language strings with minimal impact on the code and UI such as through the use of class interfaces or resource files.
+
+### Architecture Component 11: Input/Ouput (I/O)
+The architecture should specify a look-ahead, look-behind or just-in-time reading scheme. It should describe at what level the I/O errors are detected - at the field, record, stream or file level.
+
+### Architecture Component 12: Error Processing
