@@ -286,6 +286,9 @@ The architecture should describe a strategy for handling changes. It should show
 
 The architecture may specify that hard-coded data is instead moved to an external file/DB to maximise how many changes can be made without coding.
 
+<br>
+
+---
 ### Architecture Checklist
 
 The below is a checklist that can be used to sanity check the architecture. **Not all questions will apply to a given project and this list is not exhaustive**.
