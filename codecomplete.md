@@ -106,6 +106,9 @@ Prerequisites should be defined in an iterative fasion when:
 
 In general, an iterative approach to prerequisites tends to be more useful.
 
+## Ammount of Time to Spend on Upstream Prerequisites
+The amount of time to spend on prerequisites varies depending on the project. Generally though, 10-20% of effort and 20-30% of time should be devoted to it. These figures don't include detailed design which is part of construction.
+
 ## Prerequisite 1: Problem Defintion
 The problem definition is a clear statement of the problem that the system should solve. It should be a statement and should not contain a solution. For example:
 
@@ -196,9 +199,9 @@ appease your customer or your boss?
 <br>
 
 ## Prerequisite 3: Architecture (Top-Level Design)
-Software architecture is the high-level part of software design that concerns itself with system-wide constraints. Good architecture makes construction easy whereas bad arhcitecture makes construction nearly impossible. A good architectural document should have evidence that alternatives were considered.
+Software architecture is the high-level part of software design that concerns itself with system-wide constraints. Good architecture makes construction easy whereas bad arhcitecture makes construction nearly impossible.
 
-Here are the architectural components to consider:
+Here are 20 architectural components that should be considered in the doc:
 
 ### Architecture Component 1: Program Organisation
 The architecture should define the major building blocks in a program. These might be a single class or a subsystem consisting of many clases. Every feature listed in the requirements should have at least one corresponding building block. 
@@ -230,18 +233,98 @@ Coding guidelines should be developed with security implications in mind, includ
 ### Architecture Component 8: Performance
 If a concern, performance goals should be specified in the *requirements*. Then, the architecture should provide estimates and explain why they believe the performance goals are achievable. If certain areas are at risk of failing to meet the performance goals, the architecture should say so. If certain algorithms are required to meet the performance goals, the architecture should say that too. The architecture should also include O(n) space and time budgets for each class or object.
 
-### Architecture Component 8: Scalability
+### Architecture Component 9: Scalability
 The architecture should describe how the system will address growth in users, servers, database records, size of data, etc...
 
-### Architecture Component 9: Interopability
+### Architecture Component 11: Interopability
 If applicable, the architecture should specify how the system is expected to share data or resources with other software or hardware.
 
-### Architecture Component 10: Internationalisation / Localisation
+### Architecture Component 12: Internationalisation / Localisation
 Internationalisation is the activity of supporting multiple locales. Localisation is the activity of supporting a specific local language. Sometimes internationalisation is referred to as "i18n" (i and n being the first and last letters, with 18 letters in the middle) and localisation is referred to as "L10n".
 
 Internationalisation is important as most systems contain tons of prompts, status displays, help messages, error messages, etc. The architecture should specify how to manage the various foreign language strings with minimal impact on the code and UI such as through the use of class interfaces or resource files.
 
-### Architecture Component 11: Input/Ouput (I/O)
+### Architecture Component 13: Input/Ouput (I/O)
 The architecture should specify a look-ahead, look-behind or just-in-time reading scheme. It should describe at what level the I/O errors are detected - at the field, record, stream or file level.
 
-### Architecture Component 12: Error Processing
+### Architecture Component 14: Error Processing
+Some estimate that as much as 90% of code is written for error processing, making this a vital part of a software development. Here are some questions the architecture should consider:
+- Is the error processing corrective or detective. Corrective means the program should attempt to recover from the error. Detective means the program should continue as if nothing happened. But in both cases, the user should be notified of the error.
+- Is error detection active or passive? An example of active would be checking user input for validity. A passive example would be where user input causes a numeric overlow error.
+- How does the program propogate errors? The data that caused the error couuld be discarded, or the program could enter an error processing state, or the program could wait until all processing is complete before notifying the user of the error.
+- What are the conventions for handling errors? Consistency is key to minimise a messy UI and user confusion.
+- How will exceptions be handled? The architecture should consider how the errors will be logged and document and what code can throw exceptions and where they will be caught.
+- At what level are errors handled? Should they be handled at point of detection or passed up the call chain?
+- What is the level of responsibility of each class for validating its input data? Is each class responsible for validating its own data or is there a group of classes who handle validation? Can classes at any level assume that the data they're received is clean?
+- Should the environment's built-in error handling be used or should your own be built?
+
+### Architecture Component 15: Fault Tolerance
+Fault tolerance concerns itself with increasing system reliability by detecting errors, recovering from them if possible and continuing their bad effects if not.
+
+By way of a simplistic example, a system computing the square root of a number could be fault tolerant in several ways:
+- If an answer was found to be incorrect, the system could back up to the last point where everything was correct.
+- The system might have auxilary code which kicks in if it detects a problem with the primary code.
+- The system could use three methods to calculate the square root and then take the average of the results.
+- The system could replace the erroneous value with one it knows will not have a bad effect on the rest of the system.
+
+Other options for fault tolerance include having the system change to a state of partial operation or degraded functionality. It could also shut down or automatically restart.
+
+### Architecture Component 16: Architectural Feasibility
+The architecture should demonstrate that the system is technically feasible. If infeasibility in any area could render the project unworkable, the architecturte should indicated how the issues have been investigated. These risks should be resolved before construction begins.
+
+### Architecture Component 17: Overengineering
+The architecture should specify whether programmers should err on the side of overengineering or on the side of keeping things simple. The reason one might overengineer is to increase robustness. It's also important to note that programmers generally overengineer due to pride and specifying the level of overengineering needed may help avoid this phenomenon.
+
+### Architecture Component 18: Buy vs. Build
+The architecture should specify what parts of the system don't need to be built from scratch but rather can use purchasable or open-source libraries/tools instead. Where custom-classes are needed instead of ready-made libraries/tools, the architecture should specify why custom capabilities are needed.
+
+### Architecture Component 19: Reuse Decisions
+If preexisting software will be used, where applicable, the architecture should specify how that software should be changed to conform to this system's architectural goals.
+
+### Architecture Component 20: Change Strategy
+The architecture should describe a strategy for handling changes. It should show possible enhancements and which are easiest to implement. It should also show how likely changes have been anticipated and can be handled by the architecture with any code changes limited to a small number of classes.
+
+The architecture may specify that hard-coded data is instead moved to an external file/DB to maximise how many changes can be made without coding.
+
+### Architecture Checklist
+
+The below is a checklist that can be used to sanity check the architecture. **Not all questions will apply to a given project and this list is not exhaustive**.
+
+
+#### Specific Architectural Topics
+- Is the overall organisation of the program clear, inlcuding a good architectural overview and justification
+- Are major buildling blocks well defined, including their areas of responsibility and their interfaces to other building blocks?
+- Are all the foundations listed in the requirements covered sensibly, by neither too many nor too few building blocks?
+- Are the most critical classes described and justified?
+- Is the data design described and justified?
+- Is the database organisation and content specified?
+- Are all key business rules identified and their impact on the system described?
+- Is a strategy for the user inteface design described?
+- Is the UI modularised so that changes won't affect the rest of the system?
+- Is a strategy for handling I/O described and justified?
+- Are resource-use estimates and a strategy for resource management described and justified for scarce resources like threads, database connections, handles, network bandwith, etc?
+- Are the security requirements described?
+- Does the architecture set space and speed budgets for each class, sub-system or functionality area?
+- Does the architecture describe how scalability will be achieved?
+- Does the architecture address interoperability?
+- Is a strategy for internationalisation/localisation described?
+- Is a coherent error handling strategy provided?
+- Is the approach to fault tolerance provided?
+- Has technical feasibility of all parts of the system been established?
+- Is an approach to overengineering specified?
+- Are necessary buy vs. build decisions included?
+- Does the architecture describe how reused code will be made to conform to architectural objectives?
+- Is the architecture designed to accommodate likely changes?
+
+#### General Architectural Quality
+- Does the architecture account for all the requirements?
+- Is any part overarchitected or underarchitected and are expectations around this set out explicity?
+- Does the whole architecture hang together cohesively?
+- Is the top-level design independent of the magine and language that will be used to implement it?
+- Are the motivations for all major decisions provided?
+- Are you, as a programmer, comfortable with the architecture?
+
+---
+<br>
+
+# Chapter 4 - Key Construction Decisions
