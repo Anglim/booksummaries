@@ -4,6 +4,10 @@ Code Complete was written by Steve McConnell and was originally published in 199
 
 <br>
 
+# **Part I - Laying the Foundation**
+<hr>
+<br>
+
 # Chapter 1 - Welcome to Software Construction
 
 The construction phase of software development focuses on activities such as coding, debugging and testing. It is the central activity that comes after requirements and architecture, and before systems testing.
@@ -331,3 +335,60 @@ The below is a checklist that can be used to sanity check the architecture. **No
 <br>
 
 # Chapter 4 - Key Construction Decisions
+
+### Choosing a Programming Language
+The choice of progamming language affects productivity and code quality in several ways:
+- Research has shown that programmers who are familiar with a langugage for 3 years or more are 30% more productive than those with equivalent experience but who are new to the language.
+- High-level languages also provide greater productivity than low-level langugaes.
+- Programmers are influenced by the programming language in a similar way that the Sapir-Whorf hypothesis states that your ability to think a thought depends on knowing the words capable of expressing said thought. In other words, the capabilities of a language may determine the way you think.
+
+### Programming Conventions
+It is important before construction begins that the programming conventions are spelled out such as guidelines for variable names, class names, formatting and commenting.
+
+### Your Location on the Technology Wave
+When technologies are new (early-wave), documentation will be poor with little help available online. A lot of time will be spent debugging. New versions will break your code. Integrations with external tools will be unavailable.
+
+Mature technologies will benefit from a rich ecosystem including comprehensive error checking, powerful debugging tools, reliable performance optimisation and bug-free compilers. There will be tons of documentation available and lots of online help when needed.
+
+It can be beneficial to work with early-wave technologies as you'll take less for granted and will develop a greater understanding of how the language works. But most importantly, you'll learn to not be "controlled" by the language - rather than limiting yourself to what the language recommends, you'll learn to first decide what you want to do and then figure out how to use the tools to achieve that.
+
+<br>
+
+---
+### Checklist: Major Construction Practices
+
+The below is a checklist that should be used to determine what construction practices you will follow.
+
+#### Coding
+- Have you defined how much design will be done up front and how much will be done while coding?
+- Have you defined conventions for names, comments and layout?
+- Have you defined practices that are implied by the architecture such as how error conditions will be handled, how security will be addressed, conventions for class interfaces, standards for reused code, how performance will be considered when coding, etc?
+- Have you identified your location on the technology wave and adjusted your approach to match?
+
+#### Teamwork
+- Have you defined a version control procedure?
+- Will pair programming be used and if so, how?
+
+#### QA
+- Will programmers follow TDD or if not, when will they write test cases?
+- Will programmers write unit tests for all their code?
+- Will programmers step through their code in a debugger before merging their code?
+- Will programmers perform integration tests before merging their code?
+- Will programmers perform code reviews?
+
+#### Tools
+- Have you selected a version control system?
+- Have you selected a language and version?
+- Have you selected a framework?
+- Have you decided whether to allow use of nonstandard language features?
+- Have you identified other tools you'll be using such as linters, debuggers, test frameworks, etc?
+
+---
+<br>
+<br>
+
+# **Part II - Creating High-Quality Code**
+<hr>
+<br>
+
+# Chapter 5 - Key Construction Decisions
