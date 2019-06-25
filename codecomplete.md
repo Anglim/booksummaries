@@ -386,9 +386,45 @@ The below is a checklist that should be used to determine what construction prac
 ---
 <br>
 <br>
+<br>
 
 # **Part II - Creating High-Quality Code**
 <hr>
 <br>
 
-# Chapter 5 - Key Construction Decisions
+# Chapter 5 - Design in Construction
+In small, informal projects, design might look like:
+- Writing a class interface in pseudocode before writing the details
+- Drawing class diagrams of a few class relationships before coding
+- Asking another programmer which design patterns seem like a better choice
+
+### Design Challenges
+
+Design has numerous challenges:
+
+- Design often requires an initial solution in order to truly define the problem and then another solution to solve it.
+- Design is a very sloppy process as its hard to know when your design is "good enough" - whether you have enough detail, what decisions to leave to at-the-keyboard, when to stop, etc...
+- Design will consist of tradeoffs e.g. if a fast response rate is more important than minimising dev time, one design will be chosen whereas if quick dev time is the priority, another design will be chosen.
+- Design also deliberately imposes restrictions to force simplifications of the solutions that ultimately improve the solution.
+- Design is nondeterministic - there are multiple acceptable design approaches to any given program (multiple ways to skin a cat).
+- Design requires trial and error, often following "rules of thumb" and techniques that might work in one project but not in another.
+- Design is "emergent" - they don't spring up fully formed by someone. Rather, they evolve and improve through design reviews, informal discussions, experience writing code, changes after initial development, etc...
+
+### Managing Complexity
+Managing the complexity of a software project is critical. The reason being is that no human can possibly contain an entire program in their head. So the code should be organised in such a way that we can focus on just one part at a time. The more independent systems are, the safer it is to work on a single part.
+
+Overall, managing complexity should be software's primary goal.
+
+### Desirable Characteristics of Design
+- **Minimal complexity**: Avoid clever, hard-to-understand designs. You should be able to safely ignore most other parts of the program when working on a specific part.
+- **Ease of maintenance**: Design the system to be self-explanatory such that a maintenance programmer has no questions
+- **Loose coupling**: Minimise connections between different parts of the program. Use abstractions in class interfaces, encapsulation and information hiding to design classes with minimal interconnections.
+- **Extensibility**:  You should be able to enhance a program without causing problems to the underlying structure. One part should be extendable without changing other parts.
+- **Reusability**: Allow for re-use of code in other systems.
+- **High fan-in**: This means a high number of classes use a given class. This implies that has a system has made good use of utility classes at lower levels in the system.
+- **Low-to-medium fan-out**: A given class should use a low-to-medium number of other classes. High fan-out (approx >7 classes) implies that a class is overly complex. This also applies to functions.
+- **Portability**: A system should easily be moved to another environment.
+- **Leanness**: Design a system so it has no extra parts. "*A book is finished not when nothing can be added but when nothing can be removed*". A programmer should never say: "*It's easy, so what harm would it cause by adding it in*".
+- **Stratification**: The program should be designed such that viewing it at a particular level without needing to dip into other levels. For example, if you have some classes that each abstract away some complex code, you shouldn't need to dip into that complex code, rather you should be able to stay at the same level of abstraction across the program. The benefits of a stratified design are: 1) It compartamentalises messy code and 2) if the abstracted code requires modification, no other code should need to be modified as the interface should stay the same.
+- **Standard techniques**: Use standardised, common approaches to give the system a familiar feeling and reduce intimidation for coders unfamiliar with the system.
+
