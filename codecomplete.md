@@ -428,3 +428,32 @@ Overall, managing complexity should be software's primary goal.
 - **Stratification**: The program should be designed such that viewing it at a particular level without needing to dip into other levels. For example, if you have some classes that each abstract away some complex code, you shouldn't need to dip into that complex code, rather you should be able to stay at the same level of abstraction across the program. The benefits of a stratified design are: 1) It compartamentalises messy code and 2) if the abstracted code requires modification, no other code should need to be modified as the interface should stay the same.
 - **Standard techniques**: Use standardised, common approaches to give the system a familiar feeling and reduce intimidation for coders unfamiliar with the system.
 
+### Levels of Design
+Design should be separated into multiple levels as follows:
+
+#### Level 1: Software System
+This is the design of the entire system.
+
+#### Level 2: Division into Subsystems or Packages
+Here, all major subsystems are identified. These could be database, UI, business rules, reporting engine, etc. How subsystems are allowed to use other subsystems is decided. 
+
+How subsystems communicate should also be decided and this should be restricted as much as possible. Otherwise the entropy of the system will increase. It's better to be too restrictive early on and relax it than vice-versa. Avoid circular relationships.
+
+##### Common Subsystems
+Below are some of the most common subsystems that tend to appear in most projects:
+- **Business rules**: The laws, regulations, policies and procedures that are encoded into a system. This is the core logic of the system. For example, a Facebook business rule would be that you need to be logged in to add friends.
+- **UI**: The UI should be isolated such that it can be changed without damaging the rest of the system. Typically, a UI will have several of its own subsystems.
+- **Database access**: Hide the implementation details of accessing a DB to minimise low-level messiness. Centralise DB operations in one place. Make it easy to change the DB without affecting most of the program.
+- **System dependencies**: Package OS dependencies in its own subsystem. For example, Windows-specific calls should be limited to the Windows environment. Then, if you move to Linux or Max, only that subsystem needs to be changed.
+
+
+#### Level 3: Division into Classes
+At this level, all the classes in each subsystem should be indentified. Details of how each class interacts with the rest of the system are specified and the class interface is defined. 
+
+#### Level 4: Division into Functions
+At this level, classes are divided into functions. Level 3 will define the public functions exposed in the class interface so at this level, private functions will be defined. Sometimes design at this level will result in optimisations at level 3.
+
+#### Level 5: Internal Function Design
+This involves laying out the functionality of each function. This is typically left to the programmer and may involve activities such as pseudocode and researching algorithms.
+
+##### Design Building Blocks: Heuristics
