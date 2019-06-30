@@ -446,7 +446,6 @@ Below are some of the most common subsystems that tend to appear in most project
 - **Database access**: Hide the implementation details of accessing a DB to minimise low-level messiness. Centralise DB operations in one place. Make it easy to change the DB without affecting most of the program.
 - **System dependencies**: Package OS dependencies in its own subsystem. For example, Windows-specific calls should be limited to the Windows environment. Then, if you move to Linux or Max, only that subsystem needs to be changed.
 
-
 #### Level 3: Division into Classes
 At this level, all the classes in each subsystem should be indentified. Details of how each class interacts with the rest of the system are specified and the class interface is defined. 
 
@@ -456,4 +455,66 @@ At this level, classes are divided into functions. Level 3 will define the publi
 #### Level 5: Internal Function Design
 This involves laying out the functionality of each function. This is typically left to the programmer and may involve activities such as pseudocode and researching algorithms.
 
-##### Design Building Blocks: Heuristics
+### Design Building Blocks: Heuristics
+Because design is non-deterministic, it requires skillful application of heuristics i.e. ways to think about a design that may be applicable for a given project. Here are some heuristics:
+
+#### Design Heuristic 1: Find Real-World Objects
+
+Follow an object-oriented approach which focuses on identifying real-world and synthetic objects. The following steps can be done to design objects:
+
+**1. Identify the objects and their attributes (methods and data)**
+Typically programs are built on real-world objects. For example, a company billing system might have employees, clients, timecards and bills. Each with their own attributes e.g. employees might a name, title and billing rate.
+
+**2. Determine what can be done to each object**
+Determine the functions of each object e.g. in the billing system, the employee might have changeTitle() and changeBillingRate() functions.
+
+**3. Determine what each object is allowed to do to other objects**
+Which objects can *contain* other objects. Which objects can *inherit* other objects? For example, in a billing system, a bill would contain multiple timesheets.
+
+**4. Determine the parts of the object which will be visible to other objects (public vs. private)**
+Self-explanatory
+
+**5. Define each object's public interface**
+Define the methods and data exposed to every other object. Also think about the parts exposed to child objects via a protected interface.
+
+#### Design Heuristic 2: Form Consistent Abstractions
+Use abstractions to minimise complexity e.g. you refer to an object as a "house" rather than a collection of wood, glass and nails. On a higher level of abstraction, you might refer to a collection of houses as a "town". Classes are abstractions that allow you to ignore the detail of that class. A programmer could create abstractions at the routine-interface level, class-interface level and package-interface level
+
+#### Design Heuristic 3: Encapsulate Implementation Details
+Make it forbidden to access the details of a class.
+
+#### Design Heuristic 4: Inheritance
+Use inheritance to simplify programming. For example, if your system had part-time and full-time employees then you could have a base employee class to handle general employee operations. Then, have both a part-time and full-time employee class that inherits from that base class.
+
+#### Design Heuristic 5: Hide secrets (Information Hiding)
+This is the idea of a "black box". Esentially, a class should reveal as little as possible about its inner workings.
+
+**Example of Information Hiding**
+
+Suppose you had code to give each object a new ID, auto-incrementing by 1 for each new object created. You could do something like `id = ++maxId` where `maxId` is a global variable. But what if you wanted to change the logic so the IDs weren't sequential? What if you wanted to reserve ranges of IDs for special purposes? The problem is that `id = ++maxId` could turn into something much more complex in the future and then `id = ++maxId` would have to be changed everywhere its used. Instead, we could create an ID class such that the statement becomes `id = new ID()`. Behind the constructor could simply be `++maxId` at first. But if in the future the logic becomes more complex (perhaps even tens of thousands of lines long), only the code within the ID class needs to change.
+
+Furthermore, you may later decide to change the type of ID to string. Rather than declaring the type of ID as `integer`, you could instead create a custom type defition like `IdType` which resolves to `integer`. 
+
+#### Design Heuristic 6: Identify Areas Likely to Change
+
+Great designers have the ability to anticipate change. Accommodating changes is one of the most challenging aspects of design. The goal is to isolate unstable changes such that the effect of change will be limited to a small part of the code. Here are the steps to prepare for change:
+
+**1. Identify items that seem likely to change:** Good requirements will list areas that are likely to change and the probability of that. 
+
+**2. Separate items that are likely to change:** Compartmentalise each component of step 1 into its own class.
+
+**3. Isolate items that seem likely to change:** Design interfaces to limit the affect of change outside of the class. Ideally, external classes should be unaware of any changes inside the class. 
+
+The system should be designed such that areas where changes are likely are easy to change. Extremely unlikely areas to change may be permitted to have more drastic consequences.
+
+The areas typically most likely to change are:
+
+- **Business rules:** Business rules frequently change e.g. congress changes its tax structure or an insurance company changes its rate tables. If code is designed correctly, business rules should not be strewn throughout the program but rather contained within a small part of the system.
+- **Hardware dependencies:** Hardware interfaces such as screens, printers, disk drives, speakers, microphones, etc. are subject to change. Write software that can emulate the hardware and then allow the hardware/software emulator to be swapped in-and-out at any time.
+- **Input and output**: File formats regularly changfe. User input fields on forms also often change.
+- **Nonstandard language features:** If nonstandard extensions are used in your programming language, hide those extensions in their own class so they can be easily replaced when needed.
+- **Difficult design and construction areas:** These are likely to be done poorly so its best to compartmentalise them so they can be redone and so any negatice impact on the rest of the system is minimised.
+- **Status variables:** In a typical scenario, you might indicate an error with a boolean. However, you might later decide that it requires a more sophisticated implementation such as with an `enum` type e.g. `ErrorType_None`, `ErrorType_Warning` and `ErrorType_Fatal`. This can be solved by a) not using booleans but rather using `enum` and b) by using access routines rather than checking the variable directly.
+- **Data-size constraints:** Don't define constants in the code e.g. `100`. Instead, use constants such as `MAX_EMPLOYEES = 100`.
+
+#### Design Heuristic 7: Keep Coupling Loose
