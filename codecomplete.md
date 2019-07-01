@@ -143,7 +143,7 @@ There are multiple ways to handle changes to requirements:
 <br>
 
 ---
-### Requirements Checklist
+### Checklist: Requirements
 
 The below is a checklist that can be used to sanity check requirements. **Not all questions will apply to a given project**.
 
@@ -293,7 +293,7 @@ The architecture may specify that hard-coded data is instead moved to an externa
 <br>
 
 ---
-### Architecture Checklist
+### Checklist: Architecture
 
 The below is a checklist that can be used to sanity check the architecture. **Not all questions will apply to a given project and this list is not exhaustive**.
 
@@ -518,3 +518,117 @@ The areas typically most likely to change are:
 - **Data-size constraints:** Don't define constants in the code e.g. `100`. Instead, use constants such as `MAX_EMPLOYEES = 100`.
 
 #### Design Heuristic 7: Keep Coupling Loose
+Coupling describes how tightly a class or routine is related to other classes or routines. An example of loose coupling in the real world is train carriages. Only a single link couples them together and beyond that, each carriage is independent and interchangeable with one another.
+
+Here's some criteria to evalulate how coupled modules are:
+- **Size:** How many connections exists between modules? A routine that takes a single parameter is less coupled that one that takes six. A class with 4 public methods is more loosely coupled than one with 40.
+- **Visibility:** The more visible/obvious the connection between modules the better. Passing data as a parameter is very obvious and therefore good. Whereas modifying global data so that another module can use it is bad.
+- **Flexibility:** How easy can the connections between modules change. You want something like a USB connection rather than wire and a soldering gun. An example of a poorly flexible function is `getVacationDays(employee: Employee)` which calculates the vacation days based on the employees `hiringDate` and `jobFunction`. This function is not flexible because it requires an employee to be passed in. A more flexible version would be `getVacationDays(hiringDate: Date, jobFunction: JobFunction)`.
+
+Here are the most common types of coupling:
+- **Simple-data-parameter coupling:** Two modules are simple-data-parameter coupled if all the data passed between them are primitive data types and all data is passed via function parameters. This is normal and acceptable.
+- **Simple-object coupling:** A module is simple-object coupled to an object if it instantiates that object. This is fine.
+- **Object-parameter coupling:** Two modules are object-parameter coupled to each other if `Object1` requires `Object2` to pass it an `Object3`. This is tighter coupling as it requires `Object2` to know about `Object3`.
+- **Semantic coupling:** This is the worst kind of coupling and occurs when a module makes use of some semantic knowledge of another module's inner workings. They are undetectable by the compiler and make debugging a nightmare. Examples:
+  - Module1 passes a control flag to Module2 that tells Module2 what to do. This requires Module1 to make assumptions about the inner workings of Module2. If Module2 defines a specific data type for the control flag, this is probably OK.
+  - Module2 uses global data after being modified by Module1. The requires Module2 to assume that Module1 modified the data correctly and at the right time.
+  - Module1's interface states that `initalise()` must be called before `routine()`. But Module2 knows that `initialise()` is called within `routine()` and so just called `routine()` without calling `initialise()` first.
+  - Module1 passes `Object` to Module2. Because Module1 knows Module2 uses only three of `Object`'s seven methods, it only initalises `Object` partially.
+  - Module1 passed `BaseObject` to Module2. Because Module2 knows that Module1 is actually passing a `DerivedObject` of `BaseObject`, it casts `BaseObject` to `DerivedObject`.
+
+#### Design Heuristic 8: Look for Common Design Patterns
+Design patterns provide ready-made solutions to common problems. They have several benefits:
+- **Patterns reduce complexity by providing ready-made abstractions:** If you mention to another programmer that this code uses, say, the Factory Pattern, that programmer immediately understands the code without needing to spell out each line.
+- **Pattern reduces errors by institutionalising details of common solutions:** Design patterns embody wisdom accumulated over years of attempting to solve problems and are thus very solid whereas novel solutions tend to contain problems.
+- **Patterns provide heuristic value by suggesting design alternatives:** A designer can easily cycle through a list of patterns and check which ones fit the problem. This is easier than developing a solution from scratch.
+- **Patterns streamline communication by moving the design dialog to a higher level:** Design patterns allow designers to quickly jump to a higher level of granularity e.g. two programmers could discuss whether it would be better to use a Creator or Factory pattern in some code as opposed to diving into the details of the code for each pattern before discussing.
+
+**Common Design Patterns**
+Common design patterns can be found [HERE](https://refactoring.guru/design-patterns/catalog)
+
+#### Other Design Heuristics
+- **Aim for Strong Cohesion:** All routines in a class should be centered around a single purpose. The more cohesive a class is, the less complex it will be.
+- **Build Hierarchies:** A house is designed in a hierarchical manner. First the outline of the house is drawn, then windows, then doors, then more details. Hierarchies are useful in software as they allow you to focus on the level of detail you're concerned with.
+- **Formalise Class Contracts:** It can be good to think of a class's interface as a contract. Typically, a contract might look like: *"If you promise to provide data x, y and z, and you promise they'll have characteristics a, b and c, I promise to perform operations 1, 2, 3 within constraints 8, 9 and 10"*. The promises clients of the class make to the class are called "preconditions" and the promises the object makes to the client are called "postconditions".
+- **Assign responsibilities:** Think through how responsibilities should be assigned to objects. Asking what each object is responsible for is similar to asking what information it should hide but it can produce broader answers.
+- **Design for Test:** Think about how the system will look if its designed to be tested. Do you need to separate the UI? Do you need to organise each subsystem such that dependencies are minified? Designing for test generally results in better design.
+- **Avoid Failure:** Consider the ways code can fail. Don't just copy the attributes of other successful designs.
+- **Choose Binding Time Conciously:** Binding time refers to the time a specific value if bound to a variable. Code that binds early tends to be simpler but less flexible. It can be beneficial to ask questions like: What if I bound these values earlier? What if I bound them later? What if I initialised the table right there in the code? What if I read the value of this variable from the user at run time?
+- **Make Central Points of Control:** There should be "One Right Place" to look for any nontrivial piece of code and "One Right Place" to make a likely maintenance change. Control can be centralised in classes, routines, etc. The few places you have to look, the easier and safer code will be to change.
+- **Consider Using Brute Force:** Sometimes its best to use a brute force solution rather than an elegant one that takes a long time to get right. Brute force is often sufficient.
+- **Draw a Diagram:** A picture can often represent a problem far better than words and can allow you to work at a higher level of abstraction.
+- **Keep your Design Modular:** The goal of modularity is to make each class a "black box". You should only need to know what goes in and what comes out. Sometimes it helpos to think about a system as a set of black boxes.
+
+### Design Practices
+Here are some best steps to yield good results.
+
+#### Design Practice 1: Iterate
+It pays to re-do the design a few times. When you come up with a first design that seems good enough, don't stop. The second attempt is nearly always better. In many instances, solving the problem one way will produce insights that will enable you to use another approach that's even better.
+
+#### Design Practice 2: Divide and Cpnquer
+Divide the program into different areas of concern and then tackle each individually.
+
+#### Design Practice 3: Top-Down vs. Bottom-Up
+With top-down, you start at a high-level of abstraction and work down. This way, your brain isn't forced to focus on too many details at once. Top-down is naturally iterative as you start with the top level and then iterate through each level.
+
+Sometimes, the top-down approach is so abstract that it can be easier to think about it from the bottom-up. You can ask yourself "What do I need the system to do?". You might find a few responsibilities of classes e.g. you might know that a report needs to be able to print() and displayOnScreen(). After identifying some low-level responsibilities, it can then be easier to switch back to a top-down approach. 
+
+In some cases, some low-level system will dictate the design of the entire program such as a hardware device. In which case, a bottom-up approach will be required.
+
+Overall, they are not competing strategies but rather are mutually beneficial.
+
+#### Design Practice 4: Exerpimental Prototyping
+Sometimes, proptyping is helpful to better understand some implementation details. For example, you might need to know if a database framework will support 1,000 transactions per second under conditions X, Y and Z. A prototype could answer this. However, it's important to write the *absolute minimum* code needed and it's important that the code is treated as throwaway code, not future production code.
+
+#### Design Practice 5: Collaborative Design
+Often two heads are better than one. Collaboration could look like:
+- Walking over to a colleagues desk and bouncing some ideas around
+- Sitting with a colleague in a meeting room
+- Do detailed design in a pair programming environment
+- Schedule a formal inspection of your design
+- Leave the design for a week and then come back so you'll have forgotten about it and can review it yourself
+- Ask people external to the company
+
+#### Design Practice 6: How Much Design Is Enough?
+Generally, the amount of design needed is dependent on multiple of these factors:
+- The experience of the programmers
+- The knowledge of the programmer in the application's area
+- The turnover rate of the team
+- How safety-critical the application is
+- How mission-critical the application is
+- The project size
+- The expected lifetime span of the project
+
+Generally though, it's best to err on the side of more detail and under-polished documentation than vice-versa.
+
+
+<br>
+
+---
+### Checklist: Design in Construction
+
+#### Design Practices
+- Have you iterated, selecting the best of several attempts rather than the first?
+- Have you tried decomposing the system in several different ways to see which will work best?
+- Have you tried both top-down and bottom-up approaches?
+- Have you prototyped risk or unfamiliar parts of the system, creating absolute minimum, throwaway code as needed?
+- Has your design been reviewed, formally or unformally, by others?
+- Have you driven design to the point that its implementation seems obvious?
+- Have you captured your design using an approriate technique such as a wiki, email, UML, code comments, etc?
+
+#### Design Goals
+- Does the design adeqately address issues that were identified at the architectural level?
+- Is the design stratified into layers?
+- Are you satisfied with the way the program has been decomposed into subsystems, packages and classes?
+- Are you satisfied with the way the classes have been decomposed into routines?
+- Are classes designed for minimal interaction with each other?
+- Are classes and subsystems designed so that you can use them in other systems?
+- Will the program be easy to maintain?
+- Is the design lean? Are all parts of it strictly necessary?
+- Does the design use standard techniques and avoid exotic, hard-to-understand elements?
+- Overall, does the design minimise both accidental and essential complexity?
+
+---
+<br>
+
+# Chapter 6 - Working Classes
